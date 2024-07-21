@@ -1,0 +1,144 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    width: 100%;
+    height: auto;
+    background: #6f9d3b;
+}
+.app {
+    width: 72rem;
+    height: 100vh;
+    margin: auto;
+    background: #8bc34a;
+}
+.info {
+    width: 100%;
+    height: 12.5rem;
+    background: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 4fr 1fr;
+}
+.right {
+    display: grid;
+    grid-template-columns: 2fr 2fr 3fr 3fr 2fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+    font-family: sans-serif;
+}
+.right #year {
+    grid-row: 1/7;
+    grid-column: 5/6;
+    text-align: -webkit-center;
+    padding: 0 15px;
+    letter-spacing: 1rem;
+    writing-mode: vertical-lr;
+    border: 1px solid #9e9e9e;
+    border-top: 0;
+    cursor: default;
+    text-orientation: upright;
+    color: #46e5a7ad;
+    font-weight: 700;
+    border-bottom: 0;
+}
+.right #time {
+    grid-row: 1/3;
+    grid-column: 2/4;
+    align-self: center;
+    justify-self: center;
+    font-family: cursive;
+    color: #1354a9;
+}
+.right #day {
+    grid-row: 3/7;
+    grid-column: 2/4;
+    align-self: center;
+    justify-self: center;
+    font-size: 5rem;
+    font-family: fantasy;
+    color: #1354a9;
+}
+.mid {
+    align-self: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100%;
+}
+.mid i{
+    font-size: 25px;
+    background-color: #85edc5;
+    padding: 10px;
+    color: #1354a9;
+    border-radius: 50%;
+    border: 1px solid #1354a9;
+}
+.mid #dayAr {
+    font-weight: 600;
+    color: #1354a9;
+}
+.mid #dayEn {
+    font-family: sans-serif;
+    border-bottom: 3px solid #81edc3;
+    letter-spacing: 5px;
+    font-size: 20px;
+    position: relative;
+    color: #1354a9;
+}
+.mid #dayEn::before {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #47bd8e;
+    border-radius: 50%;
+    bottom: -4px;
+    left: -8px;
+}
+.mid #dayEn::after {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #47bd8e;
+    border-radius: 50%;
+    bottom: -4px;
+    right: -8px;
+}
+.mid #totalMoney {
+    font-size: larger;
+    letter-spacing: 5px;
+    color: #1354a9;
+}
+.left {
+    place-self: center;
+    direction: rtl;
+}
+.left div {
+    margin: 5px 0;
+    font-size: large;
+    font-family: 'Font Awesome 5 Pro';
+}
+.app .info .left div:nth-child(1) small::before{
+    content: 'نقديـــــــــــــه : ';
+}
+.app .info .left div:nth-child(2) small::before{
+    content: 'فيــــــــــــــزا : ';
+}
+.app .info .left div:nth-child(3) small::before{
+    content: 'ماستــر كـارد : ';
+}
+.app .info .left div:nth-child(4) small::before{
+    content: 'حســـــــــــاب : ';
+}
+.under {
+    grid-row: 2/3;
+    grid-column: 1/4;
+    background-color: #46e5a7ad;
+    border-top: 5px #2da777ad solid;
+}
