@@ -45,19 +45,19 @@
             <div class="left">
                 <div>
                     <i class="fa-regular fa-eye"></i>
-                    <small>700</small>
+                    <small value="نقديـــــــــــــه"></small>
                 </div>
                 <div>
                     <i class="fa-regular fa-eye"></i>
-                    <small>1200</small>
+                    <small value="فيــــــــــــــزا"></small>
                 </div>
                 <div>
                     <i class="fa-regular fa-eye"></i>
-                    <small>3200</small>
+                    <small value="ماستــر كـارد"></small>
                 </div>
                 <div>
                     <i class="fa-regular fa-eye"></i>
-                    <small>900</small>
+                    <small value="حســـــــــــاب"></small>
                 </div>
             </div>
             <div class="mid">
@@ -73,6 +73,36 @@
             </div>
             <div class="under"></div>
         </div>
+
+
+
+    <!-- plus button -->
+    <div id="transactionModal" class="modal">
+        <div class="modal-content">
+
+            <span class="close-button" id="closeModal">&times;</span>
+            
+            <label for="transactionAmount">Amount:</label>
+            <input type="number" id="transactionAmount" placeholder="Enter amount" />
+
+            <label for="transactionDate">Date:</label>
+            <input type="date" id="transactionDate" />
+            
+            <select id="transType">
+                <option value="ايرادات">ايرادات</option>
+                <option value="مصروفات">مصروفات</option>
+            </select>
+            <select id="walletType">
+                <option value="نقديـــــــــــــه">نقديـــــــــــــه</option>
+                <option value="فيــــــــــــــزا">فيــــــــــــــزا</option>
+                <option value="ماستــر كـارد">ماستــر كـارد</option>
+                <option value="حســـــــــــاب">حســـــــــــاب</option>
+            </select>
+            <button id="addTransactionButton">اضافه معامله</button>
+        </div>
+    </div>
+
+            
     </div>
     <script src="ex.js"></script>
 </body>

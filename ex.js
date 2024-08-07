@@ -1,3 +1,4 @@
+// Elements for displaying time and date
 let innerYear = document.getElementById('year');
 let innerTime = document.getElementById('time');
 let innerDay = document.getElementById('day');
@@ -17,16 +18,14 @@ function getTime() {
     hours = hours ? hours : 12; // the hour '0' should be '12'
 
     innerYear.innerHTML = year;
-    innerTime.innerHTML = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2,"0")} ${period}`;
+    innerTime.innerHTML = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")} ${period}`;
     innerDay.innerHTML = dayNum.toString().padStart(2, "0");
 
     let dayOfWeek = now.getDay();
     let daysOfWeekAr = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
     let daysOfWeekEn = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    let displayDayWeekNameAr = daysOfWeekAr[dayOfWeek];
-    let displayDayWeekNameEn = daysOfWeekEn[dayOfWeek];
-    dayAr.innerHTML = displayDayWeekNameAr;
-    dayEn.innerHTML = displayDayWeekNameEn;
+    dayAr.innerHTML = daysOfWeekAr[dayOfWeek];
+    dayEn.innerHTML = daysOfWeekEn[dayOfWeek];
 }
 
 getTime();
@@ -35,7 +34,7 @@ setInterval(getTime, 1000); // Update time every second
 let totalMoney = document.getElementById('totalMoney');
 let accounts = document.querySelectorAll('.left div');
 
-
+// Save account state and total money to localStorage
 function saveState() {
     let state = [];
     let total = 0;
@@ -51,6 +50,7 @@ function saveState() {
     localStorage.setItem('totalMoney', total);
 }
 
+// Load account state and total money from localStorage
 function loadState() {
     let state = JSON.parse(localStorage.getItem('accountState'));
     let savedTotal = localStorage.getItem('totalMoney');
@@ -66,11 +66,13 @@ function loadState() {
                 accounts[index].children[0].classList.remove('fa-eye');
                 accounts[index].children[0].classList.add('fa-eye-slash');
             }
+            accounts[index].children[1].innerHTML = item.amount;
         });
         totalMoney.innerHTML = savedTotal || total;
     }
 }
 
+// Attach event listeners for account visibility toggling
 function getTotal() {
     accounts.forEach(account => {
         account.children[0].addEventListener('click', function () {
@@ -94,14 +96,68 @@ function getTotal() {
 loadState(); // Load the saved state on page load
 getTotal();
 
+// Elements and event listeners for transactions
+let addTransactionButton = document.getElementById('addTransactionButton');
+let transactionAmountInput = document.getElementById('transactionAmount');
+let transTypeSelect = document.getElementById('transType');
+let walletTypeSelect = document.getElementById('walletType');
+let transactionModal = document.getElementById('transactionModal');
+let closeModal = document.getElementById('closeModal');
+let plusButton = document.getElementById('addNewTrans');
+let transactionDateInput = document.getElementById('transactionDate');
 
+// Show the modal when the plus button is clicked
+plusButton.addEventListener('click', function () {
+    // Set today's date as the default value
+    let today = new Date().toISOString().split('T')[0];
+    transactionDateInput.value = today;
 
+    transactionModal.style.display = 'block';
+});
 
-// Target the plus button
-let addNewTransButton = document.getElementById('addNewTrans');
+// Close the modal when the close button is clicked
+closeModal.addEventListener('click', function () {
+    transactionModal.style.display = 'none';
+});
 
-// Add a click event listener to the button
-addNewTransButton.addEventListener('click', function() {
-    // Define the action you want to perform when the button is clicked
-    alert('Plus button clicked!'); // You can replace this with your actual functionality
+// Add a new transaction when the button is clicked
+addTransactionButton.addEventListener('click', function () {
+    let amount = parseFloat(transactionAmountInput.value);
+    let transType = transTypeSelect.value;
+    let walletType = walletTypeSelect.value;
+    let amounts = document.querySelectorAll('.left small');
+    
+    if (!isNaN(amount) && amount > 0) {
+        let updated = false;
+        amounts.forEach(amountElem => {
+            if (amountElem.getAttribute('value') === walletType) {
+                let currentAmount = parseFloat(amountElem.innerHTML);
+                if (transType === "ايرادات") {
+                    totalMoney.innerHTML = (+totalMoney.innerHTML || 0) + amount;
+                    amountElem.innerHTML = currentAmount + amount;
+                } else if (transType === "مصروفات") {
+                    totalMoney.innerHTML = (+totalMoney.innerHTML || 0) - amount;
+                    amountElem.innerHTML = currentAmount - amount;
+                }
+                updated = true;
+            }
+        });
+
+        if (updated) {
+            // Clear the input fields
+            transactionAmountInput.value = '';
+            transTypeSelect.value = 'ايرادات';
+            walletTypeSelect.value = 'نقديـــــــــــــه';
+
+            // Hide the modal
+            transactionModal.style.display = 'none';
+
+            // Save the new state
+            saveState();
+        } else {
+            alert("No matching wallet type found.");
+        }
+    } else {
+        alert("Please enter a valid amount.");
+    }
 });
